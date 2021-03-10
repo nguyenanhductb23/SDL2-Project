@@ -1,1 +1,3 @@
-# Bai_tap_lon
+# BÀI TẬP LỚN
+
+Game SDL
