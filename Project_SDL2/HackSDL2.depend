@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1610953722 source:c:\users\admin\desktop\code\sdl2\main.cpp
+	<iostream>
+	<SDL.h>
+
+1610956137 source:c:\users\admin\desktop\code\hack_sdl2\main.cpp
+	<iostream>
+	<SDL.h>
+
+1615386092 source:f:\code\hack_sdl2\main.cpp
+	<iostream>
+	<SDL.h>
+	"mouse_and_keyboard.h"
+
+1614587525 f:\code\hack_sdl2\mouse_and_keyboard.h
+
+1615372101 source:f:\code\hack_sdl2\mouse_and_keyboard.cpp
+	<iostream>
+	<SDL.h>
+	<ctime>
+
