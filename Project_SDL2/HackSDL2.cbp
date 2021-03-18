@@ -32,6 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Duc_s_algo.cpp" />
+		<Unit filename="Duc_s_algo.h" />
+		<Unit filename="Utils.cpp" />
+		<Unit filename="Utils.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="mouse_and_keyboard.cpp" />
 		<Unit filename="mouse_and_keyboard.h" />
