@@ -1,49 +1,37 @@
 # depslib dependency file v1.0
-1610953722 source:c:\users\admin\desktop\code\sdl2\main.cpp
-	<iostream>
-	<SDL.h>
-
-1610956137 source:c:\users\admin\desktop\code\hack_sdl2\main.cpp
-	<iostream>
-	<SDL.h>
-
-1615386092 source:f:\code\hack_sdl2\main.cpp
-	<iostream>
-	<SDL.h>
-	"mouse_and_keyboard.h"
-
-1614587525 f:\code\hack_sdl2\mouse_and_keyboard.h
-
-1615372101 source:f:\code\hack_sdl2\mouse_and_keyboard.cpp
-	<iostream>
-	<SDL.h>
-	<ctime>
-
-1616081984 source:f:\code\project_sdl2\mouse_and_keyboard.cpp
-	<iostream>
-	<SDL.h>
-	<ctime>
-	"Utils.h"
-	"Duc_s_algo.h"
-
-1616081046 source:f:\code\project_sdl2\main.cpp
+1616300106 source:c:\users\admin\desktop\bai_tap_lon\project_sdl2\main.cpp
 	<iostream>
 	<SDL.h>
 	"mouse_and_keyboard.h"
 	"Utils.h"
 	"Duc_s_algo.h"
 
-1615954633 f:\code\project_sdl2\mouse_and_keyboard.h
+1615954633 c:\users\admin\desktop\bai_tap_lon\project_sdl2\headers\mouse_and_keyboard.h
 
-1616072707 f:\code\project_sdl2\utils.h
+1616072707 c:\users\admin\desktop\bai_tap_lon\project_sdl2\headers\utils.h
 
-1616081965 source:f:\code\project_sdl2\utils.cpp
+1616081965 c:\users\admin\desktop\bai_tap_lon\project_sdl2\headers\duc_s_algo.h
+
+1616320587 source:c:\users\admin\desktop\bai_tap_lon\project_sdl2\duc_s_algo.cpp
 	<iostream>
 	<SDL.h>
+	"Utils.h"
 
-1616081964 source:f:\code\project_sdl2\duc_s_algo.cpp
+1616320927 source:c:\users\admin\desktop\bai_tap_lon\project_sdl2\mouse_and_keyboard.cpp
 	<iostream>
 	<SDL.h>
+	<ctime>
+	"Utils.h"
+	"Duc_s_algo.h"
 
-1616081965 f:\code\project_sdl2\duc_s_algo.h
+1616301634 c:\users\admin\desktop\bai_tap_lon\project_sdl2\utils.h
+
+1616320636 c:\users\admin\desktop\bai_tap_lon\project_sdl2\duc_s_algo.h
+
+1616302308 source:c:\users\admin\desktop\bai_tap_lon\project_sdl2\utils.cpp
+	<iostream>
+	<SDL.h>
+	<ctime>
+
+1616300820 c:\users\admin\desktop\bai_tap_lon\project_sdl2\mouse_and_keyboard.h
 

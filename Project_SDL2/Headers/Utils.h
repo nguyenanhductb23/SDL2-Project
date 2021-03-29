@@ -11,8 +11,11 @@ void waitUntilKeyPressed();
 
 void VeHinh(SDL_Window* window, SDL_Renderer* renderer);
 
-void refreshScreen(SDL_Window* window, SDL_Renderer* renderer, const SDL_Rect& filled_rect, const SDL_Rect* rectt, const int ENEMIES);
+void refreshScreen(SDL_Window*, SDL_Renderer*, const SDL_Rect&, const SDL_Rect&,
+                   const SDL_Rect*, const int, const SDL_Rect*, const int);
 
 bool loadMedia();
+
+void moveTreasure(SDL_Rect&);
 
 void GameOver(SDL_Window* window, SDL_Renderer* renderer);

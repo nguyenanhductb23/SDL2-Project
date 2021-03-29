@@ -73,17 +73,18 @@ void mouse(SDL_Window* &window, SDL_Renderer* &renderer)
     }
 }
 
-void move(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect& rect, SDL_Rect* rectt, const int ENEMIES) {
-    int step = 10;
-    int stepp = 20;
+void move(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect& rect, SDL_Rect& treasure,
+          SDL_Rect* rectt, const int ENEMIES, SDL_Rect* wall, const int WALLS) {
+    int step = 20;
+    int stepp = 10;
     SDL_Event e;
     while (true) {
         if (SDL_WaitEvent(&e) == 0) continue;
         SDL_Delay(10);
         for (int i = 0; i < ENEMIES; i++) {
             srand(time(0)+i);
-            int dir = rand() % 4;
-            const int LEFT = 0, RIGHT = 1, DOWN = 2;
+            unsigned int dir = rand() % 5;
+            const int LEFT = 0, RIGHT = 1, DOWN = 2, UP = 3;
             switch (dir) {
                 case LEFT: rectt[i].x = (rectt[i].x + SCREEN_WIDTH - stepp) % SCREEN_WIDTH;
                     break;
@@ -91,8 +92,9 @@ void move(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect& rect, SDL_Rect* 
                     break;
                 case DOWN: rectt[i].y = (rectt[i].y + stepp) % SCREEN_HEIGHT;
                     break;
-                default: rectt[i].y = (rectt[i].y + SCREEN_HEIGHT - stepp) % SCREEN_HEIGHT;
+                case UP: rectt[i].y = (rectt[i].y + SCREEN_HEIGHT - stepp) % SCREEN_HEIGHT;
                     break;
+                default: break;
             }
         }
         if (e.type == SDL_QUIT) break;
@@ -111,9 +113,9 @@ void move(SDL_Window* window, SDL_Renderer* renderer, SDL_Rect& rect, SDL_Rect* 
                     return;
                 default: break;
             }
-            if (playerHitAnEnemy(rect, rectt, ENEMIES)) GameOver(window, renderer);
+            playerHitAnEntity(window, renderer, rect, treasure, rectt, ENEMIES);
             SDL_Delay(10);
-            refreshScreen(window, renderer, rect, rectt, ENEMIES);
+            refreshScreen(window, renderer, rect, treasure, rectt, ENEMIES, wall, WALLS);
         }
     }
 }
@@ -123,20 +125,40 @@ void determine(SDL_Window* &window, SDL_Renderer* &renderer) {
     const int ENEMIES = 25;
     SDL_Rect rectt[ENEMIES];
     for (int i = 0; i < ENEMIES; i++) {
-        rectt[i].x = 300 + 30*i;
-        rectt[i].y = 300 + 30*i;
+        rectt[i].x = 300 + 20*i;
+        rectt[i].y = 300 + 20*i;
         rectt[i].w = 25;
         rectt[i].h = 25;
     }
-
+    const int WALLS = 25;
+    SDL_Rect wall[WALLS];
+    srand(time(0));
+    int vertical = rand() % WALLS;
+    for (int i = 0; i < vertical; i++) {
+        wall[i].x = rand() % SCREEN_WIDTH;
+        wall[i].y = rand() % SCREEN_HEIGHT;
+        wall[i].w = 100;
+        wall[i].h = 10;
+    }
+    for (int i = vertical+1; i < WALLS; i++) {
+        wall[i].x = rand() % SCREEN_WIDTH;
+        wall[i].y = rand() % SCREEN_HEIGHT;
+        wall[i].w = 10;
+        wall[i].h = 100;
+    }
     SDL_Rect rect;
     rect.x = 100;
     rect.y = 100;
     rect.w = 15;
     rect.h = 15;
+    SDL_Rect treasure;
+    treasure.x = rand() % SCREEN_WIDTH;
+    treasure.y = rand() % SCREEN_HEIGHT;
+    treasure.w = 30;
+    treasure.h = 20;
     SDL_SetRenderDrawColor(renderer,0,255,0,255);
     SDL_RenderFillRect(renderer, &rect);
     SDL_Delay(10);
     SDL_RenderPresent(renderer);
-    move(window, renderer, rect, rectt, ENEMIES);
+    move(window, renderer, rect, treasure, rectt, ENEMIES, wall, WALLS);
 }

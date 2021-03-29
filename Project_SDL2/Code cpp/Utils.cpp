@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SDL.h>
+#include <ctime>
 
 using namespace std;
 
@@ -71,24 +72,35 @@ void waitUntilKeyPressed()
     }
 }
 
-void refreshScreen(SDL_Window* window, SDL_Renderer* renderer, const SDL_Rect& filled_rect, const SDL_Rect* rectt, const int ENEMIES)
+void refreshScreen(SDL_Window* window, SDL_Renderer* renderer, const SDL_Rect& filled_rect, const SDL_Rect& treasure,
+                   const SDL_Rect* rectt, const int ENEMIES, const SDL_Rect* wall, const int WALLS)
 {
-    setBkg(window, renderer);
+    //setBkg(window, renderer);
     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(renderer, &filled_rect);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0);
+    SDL_RenderFillRect(renderer, &treasure);
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
     for (int i = 0; i < ENEMIES; i++) {
         SDL_RenderFillRect(renderer, &rectt[i]);
     }
+    SDL_SetRenderDrawColor(renderer, 0, 255, 255, 0);
+    for (int i = 0; i < WALLS; i++) {
+        SDL_RenderFillRect(renderer, &wall[i]);
+    }
     SDL_RenderPresent(renderer);
 }
 
-void GameOver(SDL_Window* window, SDL_Renderer* renderer) {
+void GameOver(SDL_Window* window, SDL_Renderer* renderer) {\
+    SDL_SetRenderDrawColor(renderer, 255, 127, 0, 0);
     SDL_RenderClear(renderer);
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
     SDL_RenderPresent(renderer);
-    SDL_Delay(5000);
+    SDL_Delay(1000);
 }
 
+void moveTreasure(SDL_Rect& treasure) {
+    treasure.x = rand() % (SCREEN_WIDTH - treasure.w);
+    treasure.y = rand() % (SCREEN_HEIGHT - treasure.h);
+}
