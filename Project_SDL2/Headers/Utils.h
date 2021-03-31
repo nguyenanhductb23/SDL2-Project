@@ -3,7 +3,7 @@ void logSDLError(std::ostream& os,
 
 void initSDL(SDL_Window* &window, SDL_Renderer* &renderer);
 
-void setBkg(SDL_Window* window, SDL_Renderer* renderer, SDL_Surface* bkg);
+void loadBackground(SDL_Renderer*, const char*, SDL_Rect);
 
 void quitSDL(SDL_Window* window, SDL_Renderer* renderer);
 
@@ -18,4 +18,4 @@ bool loadMedia();
 
 void moveTreasure(SDL_Rect&);
 
-void GameOver(SDL_Window* window, SDL_Renderer* renderer);
+void GameOver(SDL_Window*, SDL_Renderer*, int &);

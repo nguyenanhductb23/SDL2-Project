@@ -34,6 +34,10 @@
 		</Compiler>
 		<Unit filename="Duc_s_algo.cpp" />
 		<Unit filename="Duc_s_algo.h" />
+		<Unit filename="PrintText.cpp" />
+		<Unit filename="PrintText.h" />
+		<Unit filename="Struct.cpp" />
+		<Unit filename="Struct.h" />
 		<Unit filename="Utils.cpp" />
 		<Unit filename="Utils.h" />
 		<Unit filename="main.cpp" />
