@@ -36,6 +36,8 @@
 		<Unit filename="Duc_s_algo.h" />
 		<Unit filename="PrintText.cpp" />
 		<Unit filename="PrintText.h" />
+		<Unit filename="StandardObject.cpp" />
+		<Unit filename="StandardObject.h" />
 		<Unit filename="Struct.cpp" />
 		<Unit filename="Struct.h" />
 		<Unit filename="Utils.cpp" />

@@ -95,3 +95,75 @@
 
 1617032971 c:\users\admin\desktop\sdl2 project\project_sdl2\mouse_and_keyboard.h
 
+1617723146 source:c:\users\admin\desktop\sdl2-project\project_sdl2\duc_s_algo.cpp
+	<iostream>
+	<SDL.h>
+	"Utils.h"
+
+1617981439 c:\users\admin\desktop\sdl2-project\project_sdl2\utils.h
+	"StandardObject.h"
+
+1617892997 source:c:\users\admin\desktop\sdl2-project\project_sdl2\main.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	"mouse_and_keyboard.h"
+	"Utils.h"
+	"Duc_s_algo.h"
+	"StandardObject.h"
+	"PrintText.h"
+
+1617978817 c:\users\admin\desktop\sdl2-project\project_sdl2\mouse_and_keyboard.h
+	"StandardObject.h"
+
+1617723169 c:\users\admin\desktop\sdl2-project\project_sdl2\duc_s_algo.h
+
+1616683480 c:\users\admin\desktop\sdl2-project\project_sdl2\printtext.h
+
+1617984726 source:c:\users\admin\desktop\sdl2-project\project_sdl2\mouse_and_keyboard.cpp
+	<iostream>
+	<SDL.h>
+	<ctime>
+	"Struct.h"
+	"Duc_s_algo.h"
+	"Utils.h"
+	"StandardObject.h"
+
+1617723749 source:c:\users\admin\desktop\sdl2-project\project_sdl2\printtext.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_ttf.h>
+
+1617445790 source:c:\users\admin\desktop\sdl2-project\project_sdl2\struct.cpp
+	"Struct.h"
+	<SDL.h>
+	<SDL_image.h>
+
+1617984506 source:c:\users\admin\desktop\sdl2-project\project_sdl2\utils.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<ctime>
+	<SDL_ttf.h>
+	"PrintText.h"
+	"StandardObject.h"
+
+1617425884 source:c:\users\admin\desktop\sdl2-project\project_sdl2\baseclasses.cpp
+	"BaseClasses.h"
+
+1617425865 c:\users\admin\desktop\sdl2-project\project_sdl2\baseclasses.h
+	<SDL.h>
+	<SDL_image.h>
+
+1617984451 c:\users\admin\desktop\sdl2-project\project_sdl2\standardobject.h
+	<SDL.h>
+	<SDL_image.h>
+
+1617984472 source:c:\users\admin\desktop\sdl2-project\project_sdl2\standardobject.cpp
+	"StandardObject.h"
+	<iostream>
+
+1617630920 c:\users\admin\desktop\sdl2-project\project_sdl2\struct.h
+
