@@ -1,6 +1,4 @@
-#include <SDL.h>
-#include <SDL_mixer.h>
-#include <iostream>
+#include "Sound.h"
 
 //The music that will be played
 Mix_Music *gMusic = NULL;
@@ -9,7 +7,6 @@ Mix_Music *gMusic = NULL;
 Mix_Chunk *gScratch = NULL;
 Mix_Chunk *gHigh = NULL;
 Mix_Chunk *gMedium = NULL;
-Mix_Chunk *gLow = NULL;
 
 bool loadMedia() {
     //Loading success flag
@@ -40,11 +37,11 @@ bool loadMedia() {
         success = false;
     }
 
-    gLow = Mix_LoadWAV( "ting.wav" );
+    /**gLow = Mix_LoadWAV( "punch.wav" );
     if( gLow == NULL ) {
         printf( "Failed to load low sound effect! SDL_mixer Error: %s\n", Mix_GetError() );
         success = false;
-    }
+    }*/
 
     return success;
 }

@@ -5,22 +5,14 @@
 #include "PrintText.h"
 #include "MainEngine.h"
 #include "Sound.h"
+#include "Struct.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-    int score = 0;
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-
-    initSDL(window, renderer);
-    //printText(window, renderer);
-
-    determine(window, renderer, score);
-
-    //waitUntilKeyPressed();
-    quitSDL(window, renderer);
-    //cout << "Hello world!  " << score << endl;
+    Media* media = new Media();
+    startMenu(media);
+    delete media;
     return 0;
 }

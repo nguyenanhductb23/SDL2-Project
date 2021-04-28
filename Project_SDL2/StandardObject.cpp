@@ -1,5 +1,4 @@
 #include "StandardObject.h"
-#include <iostream>
 
 Object::Object() {
     texture = NULL;
@@ -18,6 +17,10 @@ void Object::setTexture(SDL_Renderer* renderer, SDL_Surface* image, const char* 
         this->texture = SDL_CreateTextureFromSurface(renderer, image);
         SDL_FreeSurface(image);
     }
+}
+
+void Object::setTexture(SDL_Texture* loaded_texture) {
+    this->texture = loaded_texture;
 }
 
 void Object::presentPNG(SDL_Renderer* renderer, const SDL_Rect &rect) {

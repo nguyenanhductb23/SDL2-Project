@@ -34,8 +34,8 @@
 		</Compiler>
 		<Unit filename="Duc_s_algo.cpp" />
 		<Unit filename="Duc_s_algo.h" />
-		<Unit filename="LTexture.cpp" />
-		<Unit filename="LTexture.h" />
+		<Unit filename="HighScoreFile.cpp" />
+		<Unit filename="HighScoreFile.h" />
 		<Unit filename="MainEngine.cpp" />
 		<Unit filename="MainEngine.h" />
 		<Unit filename="PrintText.cpp" />
@@ -44,7 +44,6 @@
 		<Unit filename="Sound.h" />
 		<Unit filename="StandardObject.cpp" />
 		<Unit filename="StandardObject.h" />
-		<Unit filename="Struct.cpp" />
 		<Unit filename="Struct.h" />
 		<Unit filename="Utils.cpp" />
 		<Unit filename="Utils.h" />

@@ -1,21 +1,24 @@
-#include <iostream>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <ctime>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
-#include "PrintText.h"
-#include "StandardObject.h"
 #include "Utils.h"
 
 using namespace std;
 
 SDL_Texture* loadPNG(SDL_Renderer* renderer, SDL_Surface* image, const char* path) {
     SDL_Texture* texture = NULL;
-    IMG_Init(IMG_INIT_PNG);
     image = IMG_Load(path);
-    if (image == NULL)  cerr << "Can't load background. Error: " << SDL_GetError();
+    if (image == NULL)  cerr << "Couldn't load background. Error: " << SDL_GetError();
     else {
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        SDL_FreeSurface(image);
+    }
+    return texture;
+}
+
+SDL_Texture* loadPNG_KeyColor(SDL_Renderer* renderer, SDL_Surface* image, const char* path) {
+    SDL_Texture* texture = NULL;
+    image = IMG_Load(path);
+    if (image == NULL)  cerr << "Couldn't load background. Error: " << SDL_GetError();
+    else {
+        SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB( image->format, 0xFF, 0xFF, 0xFF ) );
         texture = SDL_CreateTextureFromSurface(renderer, image);
         SDL_FreeSurface(image);
     }
@@ -87,22 +90,7 @@ void waitUntilKeyPressed()
     }
 }
 
-void GameOver(SDL_Renderer* renderer, int &score) {
-    SDL_SetRenderDrawColor(renderer, 57, 127, 0, 0);
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
-    SDL_Delay(1000);
-    //printText(renderer);
-    cout << "GAME OVER!!" << endl << "Your score: " << score;
-    exit(0);
-}
 
-void moveTreasure(Object& treasure) {
-    SDL_Rect rect = treasure.getRect();
-    int x = (SQ_SIZE * rand()) % SCREEN_WIDTH + 10;
-    int y = (SQ_SIZE * rand()) % SCREEN_HEIGHT + 15;
-    treasure.setRect(x, y, rect.w, rect.h);
-}
 
 /*void loadSound() {
     Mix_Music*
