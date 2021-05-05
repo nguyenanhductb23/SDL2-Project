@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include "Utils.h"
 
-int getHighScore();
+int* getHighScore();
 
-void setHighScore(const int&);
+void setHighScore(const int*);

@@ -2,20 +2,21 @@
 #define _M_K_
 
 #include <vector>
-#include "Struct.h"
+#include "Media.h"
 #include "Duc_s_algo.h"
 #include "Utils.h"
 #include "StandardObject.h"
-#include "PrintText.h"
 
-//void mouse(SDL_Window* &, SDL_Renderer* &);
+void RandomMove(const int& mode, Object&, const Object*, const int&, int**);
 
-void RandomMove(Object&, const Object*, const int&, int**);
-
-void KeyboardMove(SDL_Event&, Object&, Object*, int&, int**);
+void KeyboardMove(const int& mode, SDL_Event&, Object&, Object*, int&, int**);
 
 void startMenu(Media*);
 
-void Replay(Media*, int&);
+void pauseMenu(Media*, const int&);
+
+void playAgain(Media*, const int& mode, const int&);
+
+int chooseMode(Media*);
 
 #endif

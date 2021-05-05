@@ -18,10 +18,20 @@ public:
     void setRect(const SDL_Rect&);
     void setTexture(SDL_Renderer*, SDL_Surface*, const char*);
     void setTexture(SDL_Texture*);
-    //void copyTexture(const Object Other);
-    void presentPNG(SDL_Renderer*, const SDL_Rect&);
-    void Render(SDL_Renderer*, const SDL_Rect*);
+    void Render(SDL_Renderer*, const SDL_Rect&) const;
 };
 
+struct Point {
+    double x;
+    double y;
+    Point() {
+        x = 0;      y = 0;
+    }
+    Point(double x, double y) {
+        this->x = x;
+        this->y = y;
+    }
+    ~Point() {}
+};
 
 #endif

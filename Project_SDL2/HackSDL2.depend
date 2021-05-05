@@ -95,55 +95,50 @@
 
 1617032971 c:\users\admin\desktop\sdl2 project\project_sdl2\mouse_and_keyboard.h
 
-1619607399 source:c:\users\admin\desktop\sdl2-project\project_sdl2\duc_s_algo.cpp
+1620223207 source:c:\users\admin\desktop\sdl2-project\project_sdl2\duc_s_algo.cpp
 	"Duc_s_algo.h"
 
-1619577830 c:\users\admin\desktop\sdl2-project\project_sdl2\utils.h
+1620202493 c:\users\admin\desktop\sdl2-project\project_sdl2\utils.h
 	<iostream>
-	<chrono>
+	<ctime>
 	<SDL.h>
 	<SDL_image.h>
-	<ctime>
+	<SDL_mixer.h>
 	<SDL_ttf.h>
 	<SDL_mixer.h>
-	"PrintText.h"
 	"StandardObject.h"
 
-1619591981 source:c:\users\admin\desktop\sdl2-project\project_sdl2\main.cpp
+1620202410 source:c:\users\admin\desktop\sdl2-project\project_sdl2\main.cpp
 	"mouse_and_keyboard.h"
 	"Utils.h"
 	"Duc_s_algo.h"
 	"StandardObject.h"
-	"PrintText.h"
 	"MainEngine.h"
-	"Sound.h"
-	"Struct.h"
+	"Media.h"
 
-1619598112 c:\users\admin\desktop\sdl2-project\project_sdl2\mouse_and_keyboard.h
+1620202389 c:\users\admin\desktop\sdl2-project\project_sdl2\mouse_and_keyboard.h
 	<vector>
-	"Struct.h"
+	"Media.h"
 	"Duc_s_algo.h"
 	"Utils.h"
 	"StandardObject.h"
-	"PrintText.h"
 
-1619609433 c:\users\admin\desktop\sdl2-project\project_sdl2\duc_s_algo.h
+1620201831 c:\users\admin\desktop\sdl2-project\project_sdl2\duc_s_algo.h
 	"StandardObject.h"
 	"Utils.h"
 	"MainEngine.h"
 	"HighScoreFile.h"
-	"Sound.h"
 
-1619529224 c:\users\admin\desktop\sdl2-project\project_sdl2\printtext.h
+1620201695 c:\users\admin\desktop\sdl2-project\project_sdl2\printtext.h
 	<iostream>
 	<SDL.h>
 	<SDL_ttf.h>
 	"Utils.h"
 
-1619599996 source:c:\users\admin\desktop\sdl2-project\project_sdl2\mouse_and_keyboard.cpp
+1620218613 source:c:\users\admin\desktop\sdl2-project\project_sdl2\mouse_and_keyboard.cpp
 	"mouse_and_keyboard.h"
 
-1619598634 source:c:\users\admin\desktop\sdl2-project\project_sdl2\printtext.cpp
+1619923988 source:c:\users\admin\desktop\sdl2-project\project_sdl2\printtext.cpp
 	"PrintText.h"
 
 1619323986 source:c:\users\admin\desktop\sdl2-project\project_sdl2\struct.cpp
@@ -151,7 +146,7 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1619577793 source:c:\users\admin\desktop\sdl2-project\project_sdl2\utils.cpp
+1620201695 source:c:\users\admin\desktop\sdl2-project\project_sdl2\utils.cpp
 	"Utils.h"
 
 1617425884 source:c:\users\admin\desktop\sdl2-project\project_sdl2\baseclasses.cpp
@@ -161,30 +156,25 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1619598023 c:\users\admin\desktop\sdl2-project\project_sdl2\standardobject.h
+1620044124 c:\users\admin\desktop\sdl2-project\project_sdl2\standardobject.h
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 
-1619520244 source:c:\users\admin\desktop\sdl2-project\project_sdl2\standardobject.cpp
+1620044071 source:c:\users\admin\desktop\sdl2-project\project_sdl2\standardobject.cpp
 	"StandardObject.h"
 
-1619607383 c:\users\admin\desktop\sdl2-project\project_sdl2\struct.h
+1620184628 c:\users\admin\desktop\sdl2-project\project_sdl2\struct.h
 	"Utils.h"
 
-1619607029 c:\users\admin\desktop\sdl2-project\project_sdl2\mainengine.h
-	<SDL.h>
-	<ctime>
+1620202454 c:\users\admin\desktop\sdl2-project\project_sdl2\mainengine.h
 	"mouse_and_keyboard.h"
 	"Utils.h"
 	"Duc_s_algo.h"
 	"StandardObject.h"
-	"PrintText.h"
-	"LTexture.h"
-	"Sound.h"
 	"HighScoreFile.h"
 
-1619608784 source:c:\users\admin\desktop\sdl2-project\project_sdl2\mainengine.cpp
+1620203171 source:c:\users\admin\desktop\sdl2-project\project_sdl2\mainengine.cpp
 	"MainEngine.h"
 
 1619249286 source:c:\users\admin\desktop\sdl2-project\project_sdl2\ltexture.cpp
@@ -205,10 +195,14 @@
 1619448196 source:c:\users\admin\desktop\sdl2-project\project_sdl2\sound.cpp
 	"Sound.h"
 
-1619421833 c:\users\admin\desktop\sdl2-project\project_sdl2\highscorefile.h
+1620200067 c:\users\admin\desktop\sdl2-project\project_sdl2\highscorefile.h
 	<iostream>
 	<fstream>
+	"Utils.h"
 
-1619421943 source:c:\users\admin\desktop\sdl2-project\project_sdl2\highscorefile.cpp
+1620199987 source:c:\users\admin\desktop\sdl2-project\project_sdl2\highscorefile.cpp
 	"HighScoreFile.h"
+
+1620224101 c:\users\admin\desktop\sdl2-project\project_sdl2\media.h
+	"Utils.h"
 

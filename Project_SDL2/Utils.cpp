@@ -2,29 +2,6 @@
 
 using namespace std;
 
-SDL_Texture* loadPNG(SDL_Renderer* renderer, SDL_Surface* image, const char* path) {
-    SDL_Texture* texture = NULL;
-    image = IMG_Load(path);
-    if (image == NULL)  cerr << "Couldn't load background. Error: " << SDL_GetError();
-    else {
-        texture = SDL_CreateTextureFromSurface(renderer, image);
-        SDL_FreeSurface(image);
-    }
-    return texture;
-}
-
-SDL_Texture* loadPNG_KeyColor(SDL_Renderer* renderer, SDL_Surface* image, const char* path) {
-    SDL_Texture* texture = NULL;
-    image = IMG_Load(path);
-    if (image == NULL)  cerr << "Couldn't load background. Error: " << SDL_GetError();
-    else {
-        SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB( image->format, 0xFF, 0xFF, 0xFF ) );
-        texture = SDL_CreateTextureFromSurface(renderer, image);
-        SDL_FreeSurface(image);
-    }
-    return texture;
-}
-
 void logSDLError(ostream& os,
                  const string &msg, bool fatal)
 {
@@ -35,9 +12,7 @@ void logSDLError(ostream& os,
     }
 }
 
-void initSDL(SDL_Window* &window, SDL_Renderer* &renderer)
-{
-
+void initSDL(SDL_Window* &window, SDL_Renderer* &renderer) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
         logSDLError(cout, "SDL_Init", true);
 
@@ -75,25 +50,66 @@ void quitSDL(SDL_Window* window, SDL_Renderer* renderer)
 {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	TTF_Quit();
+	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
 
-void waitUntilKeyPressed()
-{
-    SDL_Event e;
-    while (true) {
-        if ( SDL_WaitEvent(&e) != 0 &&
-             (e.type == SDL_KEYDOWN || e.type == SDL_QUIT) )
-            return;
-        SDL_Delay(1000);
+SDL_Texture* loadFromRenderedText(string textureText, SDL_Color textColor, TTF_Font* &textFont, SDL_Renderer* &renderer) {
+    SDL_Surface* textSurface = TTF_RenderText_Solid( textFont, textureText.c_str(), textColor );
+    if( textSurface == NULL ) {
+        logSDLError(cout, "Unable to render text surface!", true);
+    }
+    else {
+        //Create texture from surface pixels
+        SDL_Texture* texture = SDL_CreateTextureFromSurface( renderer, textSurface );
+        SDL_FreeSurface(textSurface);
+        if (texture == NULL) {
+            logSDLError(cout, "Unable to create texture from rendered text!", true);
+        }
+        return texture;
     }
 }
 
+void copyText(SDL_Texture* texture, const SDL_Rect &RECT, SDL_Renderer* &renderer) {
+    SDL_RenderCopy(renderer, texture, NULL, &RECT);
+}
 
 
-/*void loadSound() {
-    Mix_Music*
-}*/
+SDL_Texture* loadPNG(SDL_Renderer* renderer, SDL_Surface* image, const char* path) {
+    SDL_Texture* texture = NULL;
+    image = IMG_Load(path);
+    if (image == NULL)  cerr << "Couldn't load background. Error: " << SDL_GetError();
+    else {
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        SDL_FreeSurface(image);
+    }
+    return texture;
+}
 
+SDL_Texture* loadPNG_KeyColor(SDL_Renderer* renderer, SDL_Surface* image, const char* path) {
+    SDL_Texture* texture = NULL;
+    image = IMG_Load(path);
+    if (image == NULL)  cerr << "Couldn't load background. Error: " << SDL_GetError();
+    else {
+        SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB( image->format, 0xFF, 0xFF, 0xFF ) );
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        SDL_FreeSurface(image);
+    }
+    return texture;
+}
 
+void PlaySound(Mix_Music* gMusic) {
+    if( Mix_PlayingMusic() == 0 ) {
+        Mix_PlayMusic( gMusic, -1 );
+    }
+    else {
+        if( Mix_PausedMusic() == 1 ) {
+            Mix_ResumeMusic();
+        }
+        else {
+            Mix_PauseMusic();
+        }
+    }
+}

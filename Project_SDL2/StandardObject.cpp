@@ -23,7 +23,7 @@ void Object::setTexture(SDL_Texture* loaded_texture) {
     this->texture = loaded_texture;
 }
 
-void Object::presentPNG(SDL_Renderer* renderer, const SDL_Rect &rect) {
+void Object::Render(SDL_Renderer* renderer, const SDL_Rect &rect) const {
     SDL_RenderCopy(renderer, this->texture, NULL, &rect);
 }
 
@@ -48,13 +48,4 @@ Object::~Object() {
         rect.w = 0;
         rect.h = 0;
     }
-}
-
-void Object::Render(SDL_Renderer* renderer, const SDL_Rect* pos) {
-    SDL_Rect pos_rect = { rect.x, rect.y, rect.w, rect.h };
-    if (pos != NULL) {
-        pos_rect.w = pos->w;
-        pos_rect.h = pos->h;
-    }
-    SDL_RenderCopy(renderer, texture, pos, &pos_rect);
 }

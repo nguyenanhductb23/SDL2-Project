@@ -2,10 +2,8 @@
 #include "Utils.h"
 #include "Duc_s_algo.h"
 #include "StandardObject.h"
-#include "PrintText.h"
 #include "MainEngine.h"
-#include "Sound.h"
-#include "Struct.h"
+#include "Media.h"
 
 using namespace std;
 

@@ -1,15 +1,18 @@
 #include "MainEngine.h"
 
-void Play(Media* media) {
+void Play(Media* media, const int& mode) {
     SDL_Renderer* renderer = media->renderer;
     int score = 0;
-    int WALLS = 60;
+    SDL_Texture* score_text = NULL;
+    SDL_Point mouse_pos = {0, 0};
+    int WALLS = MAX_WALLS[mode];
     Object treasure, Werner, enemy[ENEMIES], wall[WALLS];
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
 
-    int** pos = new int* [NUM_OF_SQ_BY_X];
-    for (int i = 0; i < NUM_OF_SQ_BY_X; i++) {
-        pos[i] = new int [NUM_OF_SQ_BY_Y];
-        for (int j = 0; j < NUM_OF_SQ_BY_Y; j++)
+    int** pos = new int* [NUM_OF_SQ_BY_X[mode]];
+    for (int i = 0; i < NUM_OF_SQ_BY_X[mode]; i++) {
+        pos[i] = new int [NUM_OF_SQ_BY_Y[mode]];
+        for (int j = 0; j < NUM_OF_SQ_BY_Y[mode]; j++)
             pos[i][j] = 0;
     }
 
@@ -17,80 +20,92 @@ void Play(Media* media) {
     SDL_RenderCopy(renderer, media->background_png, NULL, &BIG_RECT);
 
     Werner.setTexture(media->Werner_png);
-    Werner.setRect(0, 0, SQ_SIZE, SQ_SIZE);
+    Werner.setRect(0, 0, SQ_SIZE[mode], SQ_SIZE[mode]);
 
     treasure.setTexture(media->treasure_png);
-    treasure.setRect(765, 10, 30, 20);
+    treasure.setRect(610, 10, 30, 20);
 
     for (int i = 0; i < WALLS; i++) {
-        srand(time(0)+i*20);
-        int x = (SQ_SIZE * rand()) % SCREEN_WIDTH;
-        int y = (rand() % (SCREEN_HEIGHT / SQ_SIZE - 1) + 1) * SQ_SIZE;
-        wall[i].setRect(x, y, SQ_SIZE, SQ_SIZE);
+        int x = 0, y = 0;
+        do {
+            srand(time(0)+i*20);
+            x = rand() % (SCREEN_WIDTH / SQ_SIZE[mode]);
+            y = rand() % (SCREEN_HEIGHT / SQ_SIZE[mode] - 1) + 1;
+        } while (pos[x][y] == -1);
+
+        wall[i].setRect(x* SQ_SIZE[mode], y* SQ_SIZE[mode], SQ_SIZE[mode], SQ_SIZE[mode]);
         wall[i].setTexture(media->wall_png);
-        pos[x/SQ_SIZE][y/SQ_SIZE] = -1;
+        pos[x][y] = -1;
     }
 
     for (int i = 0; i < ENEMIES; i++) {
         int x = 6 + i;
         int y = 4 + i;
-        while (pos[x][y] == -1) {
-            if (x >= NUM_OF_SQ_BY_X - 1) {
+        while (pos[x][y] < 0) {
+            if (x+1 == NUM_OF_SQ_BY_X[mode]) {
                 y++;        x = 0;
             }
             else x++;
         }
-        enemy[i].setRect(x*SQ_SIZE, y*SQ_SIZE, SQ_SIZE, SQ_SIZE);
+        pos[x][y] = 1;
+        enemy[i].setRect(x*SQ_SIZE[mode], y*SQ_SIZE[mode], SQ_SIZE[mode], SQ_SIZE[mode]);
         enemy[i].setTexture(media->enemy_png);
     }
     SDL_RenderPresent(renderer);
 
 ///MAIN LOOP--------------------------------------------------------
     SDL_Event e;
+    if (e.type == SDL_QUIT) exit(0);
+
     while (true) {
-        if (e.type == SDL_QUIT) exit(0);
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, media->background_png, NULL, &BIG_RECT);
-        treasure.presentPNG(renderer, treasure.getRect());
+        SDL_RenderFillRect(renderer, &GREEN_RECT);
+        SDL_RenderCopy(renderer, media->pause_button_png, NULL, &PAUSE_RECT);
+        treasure.Render(renderer, treasure.getRect());
 
         for (int i = 0; i < ENEMIES; i++) {
             srand(time(0)+i);
-            RandomMove(enemy[i], wall, WALLS, pos);
-            SDL_Delay(10);
-            enemy[i].presentPNG(renderer, enemy[i].getRect());
-
-            for (int i = 0; i < NUM_OF_SQ_BY_X; i++)
-                for (int j = 0; j < NUM_OF_SQ_BY_Y; j++)
-                    if (pos[i][j] >= 2) {
-                        SDL_Texture* text = loadFromRenderedText(intToString(pos[i][j]), {255,0,255}, media->font, renderer);
-                        SDL_Rect rect = {SQ_SIZE * i, SQ_SIZE * j, 10, 18};
-                        copyText(text, rect, renderer);
-                    }
+            RandomMove(mode, enemy[i], wall, WALLS, pos);
+            SDL_Delay(20);
+            enemy[i].Render(renderer, enemy[i].getRect());
         }
+        for (int k = 0; k < NUM_OF_SQ_BY_X[mode]; k++)
+            for (int j = 0; j < NUM_OF_SQ_BY_Y[mode]; j++)
+                if (pos[k][j] >= 2) {
+                    SDL_Texture* text = loadFromRenderedText(intToString(pos[k][j]), {255,0,255}, media->font, renderer);
+                    SDL_Rect rect = {SQ_SIZE[mode] * k, SQ_SIZE[mode] * j, 10, 18};
+                    copyText(text, rect, renderer);
+                }
 
-        while (SDL_PollEvent(&e)) {
-            if (SDL_WaitEvent(&e) == 0) continue;
-            else {
-                KeyboardMove(e, Werner, wall, WALLS, pos);
-            }
-        }
-
-        Werner.presentPNG(renderer, Werner.getRect());
 
         for (int i = 0; i < WALLS; i++) {
-            wall[i].presentPNG(renderer, wall[i].getRect());
+            wall[i].Render(renderer, wall[i].getRect());
         }
 
-        SDL_Texture* score_text = loadFromRenderedText("Score: "+ intToString(score), {255,200,200}, media->font, renderer);
-        SDL_Rect score_rect = {880, 10, 100, 20};
-        copyText(score_text, score_rect, renderer);
+        score_text = loadFromRenderedText("Score: "+ intToString(score), {255,200,200}, media->font, renderer);
+        copyText(score_text, SCORE_RECT, renderer);
 
+        while (SDL_PollEvent(&e)) {
+            mouse_pos = {e.motion.x, e.motion.y};
+            if (e.type == SDL_MOUSEBUTTONDOWN && isIn(mouse_pos, PAUSE_RECT)) {
+                pauseMenu(media, score);
+            }
+            else {
+                KeyboardMove(mode, e, Werner, wall, WALLS, pos);
+                if (e.type == SDL_MOUSEBUTTONDOWN && score > 0) {
+                    SDL_Point des = {e.motion.x, e.motion.y};
+                    score--;
+                    laserShoot(media, mode, renderer, des, Werner, wall, WALLS, pos);
+                }
+            }
+        }
+        Werner.Render(renderer, Werner.getRect());
         SDL_RenderPresent(renderer);
-        SDL_Delay(100);
-        playerHitAnObject(media, Werner, treasure, enemy, pos, score);
+        playerHitAnObject(media, mode, Werner, treasure, enemy, pos, score);
     }
-///------------------------------------------------------------------------
-    for (int i = 0; i < NUM_OF_SQ_BY_X; i++) {
+//------------------------------------------------------------------------
+    for (int i = 0; i < NUM_OF_SQ_BY_X[mode]; i++) {
         delete []pos[i];
     }
     delete []pos;

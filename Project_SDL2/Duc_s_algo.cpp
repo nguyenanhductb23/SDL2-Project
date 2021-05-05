@@ -1,19 +1,19 @@
 #include "Duc_s_algo.h"
 
-void moveTreasure(Object& treasure, int** pos) {
+void moveTreasure(const int& mode, Object& treasure, int** pos) {
     SDL_Rect rect = treasure.getRect();
     srand(time(0));
-    int x_ = rand() % NUM_OF_SQ_BY_X;
+    int x_ = rand() % NUM_OF_SQ_BY_X[mode];
     srand(time(0)+1);
-    int y_ = rand() % NUM_OF_SQ_BY_Y;
+    int y_ = rand() % (NUM_OF_SQ_BY_Y[mode] -1) +1;
     while (pos[x_][y_] == -1) {
-        x_ = (x_ + 1) % NUM_OF_SQ_BY_X;
+        x_ = (x_ + 1) % NUM_OF_SQ_BY_X[mode];
         while (pos[x_][y_] == -1) {
-            y_ = (y_ + 1) % NUM_OF_SQ_BY_Y;
+            y_ = (y_ + 1) % (NUM_OF_SQ_BY_Y[mode] -1) +1;
         }
     }
-    int x = x_ * SQ_SIZE + 10;
-    int y = y_ * SQ_SIZE + 15;
+    int x = x_ * SQ_SIZE[mode] + 10;
+    int y = y_ * SQ_SIZE[mode] + 15;
     treasure.setRect(x, y, rect.w, rect.h);
 }
 
@@ -25,26 +25,26 @@ void freeFalling(Media* media, Object &Werner) {//, Object* wall, const int WALL
         SDL_RenderClear(renderer);
         rect.y += 10;
         Werner.setRect(rect);
-        Werner.presentPNG(renderer, Werner.getRect());
+        Werner.Render(renderer, Werner.getRect());
         SDL_RenderPresent(renderer);
         SDL_Delay(30);
     }
 }
 
-bool isIn(const SDL_Point point, const SDL_Rect &rect) {
+bool isIn(const SDL_Point& point, const SDL_Rect &rect) {
     if (point.x >= rect.x && point.x <= rect.x + rect.w
         && point.y >= rect.y && point.y <= rect.y + rect.h) return true;
     return false;
 }
 
-bool Captured(const Object &Werner, const Object &enemy_i) {
+bool Captured(const int& mode, const Object &Werner, const Object &enemy_i) {
     SDL_Rect w_rect = Werner.getRect();
     SDL_Rect e_rect = enemy_i.getRect();
     SDL_Point w_point[4];
     w_point[0] = {w_rect.x, w_rect.y};
-    w_point[1] = {w_rect.x + SQ_SIZE, w_rect.y};
-    w_point[2] = {w_rect.x, w_rect.y + SQ_SIZE};
-    w_point[3] = {w_rect.x + SQ_SIZE, w_rect.y + SQ_SIZE};
+    w_point[1] = {w_rect.x + SQ_SIZE[mode], w_rect.y};
+    w_point[2] = {w_rect.x, w_rect.y + SQ_SIZE[mode]};
+    w_point[3] = {w_rect.x + SQ_SIZE[mode], w_rect.y + SQ_SIZE[mode]};
     int count = 0;
     for (int j = 0; j < 4; j++) {
         if (isIn(w_point[j], e_rect)) count++;
@@ -54,7 +54,7 @@ bool Captured(const Object &Werner, const Object &enemy_i) {
     return false;
 }
 
-bool RectHitsRect(const SDL_Rect rect1, const SDL_Rect rect2) {
+bool RectHitsRect(const SDL_Rect& rect1, const SDL_Rect& rect2) {
     SDL_Point point[4];
     point[1].x = rect1.x;
     point[3].x = rect1.x;
@@ -70,34 +70,37 @@ bool RectHitsRect(const SDL_Rect rect1, const SDL_Rect rect2) {
     return false;
 }
 
-bool ReachTreasure(const Object &obj, const Object &treasure) {
+bool ReachTreasure(const Object& Werner, const Object& treasure) {
     SDL_Point treasure_point = {treasure.getRect().x, treasure.getRect().y};
-    if (isIn(treasure_point, obj.getRect())) return true;
+    if (isIn(treasure_point, Werner.getRect())) {
+        return true;
+    }
     return false;
 }
 
-void playerHitAnObject(Media* media, Object& Werner, Object& treasure,
-                       const Object* enemy, int** pos, int &score) {
+void playerHitAnObject(Media* media, const int& mode, Object& Werner, Object& treasure,
+                       const Object* enemy, int** pos, int& score) {
     const SDL_Rect Wnrect =  Werner.getRect();
     for (int i = 0; i < ENEMIES; i++) {
-        if (Captured(Werner, enemy[i])) {
+        if (Captured(mode, Werner, enemy[i])) {
             Mix_PlayChannel( -1, media->bupp, 0 );
             Mix_HaltMusic();
+            SDL_RenderPresent(media->renderer);
             SDL_Delay(2000);
             freeFalling(media, Werner);
-            GameOver(media, score);
+            GameOver(media, mode, score);
             return;
         }
     }
     if (ReachTreasure(Werner, treasure)) {
         Mix_PlayChannel( -1, media->ping, 0 );
-        score++;
-        moveTreasure(treasure, pos);
+        score += 10;
+        moveTreasure(mode, treasure, pos);
         return;
     }
 }
 
-bool CanMove(const SDL_Rect &rect, const Object* wall, const int &WALLS) {
+bool CanMove(const SDL_Rect& rect, const Object* wall, const int& WALLS) {
     if (rect.x < 0 || rect.x >= SCREEN_WIDTH) return false;
     if (rect.y < 0 || rect.y >= SCREEN_HEIGHT) return false;
 
@@ -108,16 +111,27 @@ bool CanMove(const SDL_Rect &rect, const Object* wall, const int &WALLS) {
     return true;
 }
 
-void GameOver(Media* media, int &score) {
+bool CanMove(const int& mode, const SDL_Rect& rect, int** pos) {
+    if (rect.x < 0 || rect.x >= SCREEN_WIDTH) return false;
+    if (rect.y < 0 || rect.y >= SCREEN_HEIGHT) return false;
+    if (rect.y == 0 && rect.x + SQ_SIZE[mode] >= PAUSE_RECT.x) return false;
+    int x_ = rect.x / SQ_SIZE[mode];
+    int y_ = rect.y / SQ_SIZE[mode];
+    if (pos[x_][y_] == -1) return false;
+    return true;
+}
+
+void GameOver(Media* media, const int& mode, int& score) {
     SDL_RenderPresent(media->renderer);
     SDL_Delay(1000);
-    std::cout << "GAME OVER!!" << std::endl << "Your score: " << score << std::endl;
-    int high_score = getHighScore();
-    if (score > high_score) {
-        cerr << std::endl << "New high score!!!!!";
-        setHighScore(score);
+    int* high_score = new int [NUM_OF_MODES];
+    high_score = getHighScore();
+    if (score > high_score[mode]) {
+        high_score[mode] = score;
+        setHighScore(high_score);
     }
-    Replay(media, score);
+    delete high_score;
+    playAgain(media, mode, score);
 }
 
 string intToString(const int &num) {
@@ -132,27 +146,53 @@ string intToString(const int &num) {
     return str;
 }
 
-void Instruction(Media* media) {
-    const SDL_Rect RECT = {0,0,1000,600};
-    SDL_Event e;
-    Mix_Chunk* ping = media->ping;
-    SDL_Texture* menu_texture = media->instruction_png;
-    SDL_RenderCopy(media->renderer, menu_texture, NULL, &BIG_RECT);
-    SDL_RenderPresent(media->renderer);
-    while (true) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) exit(0);
-            if (e.type != SDL_MOUSEBUTTONDOWN || e.button.button != SDL_BUTTON_LEFT) {
-                continue;
-            }
-            SDL_Point mouse_pos = {e.motion.x, e.motion.y};
-
-            if (isIn(mouse_pos, RECT)) {
-                Mix_PlayChannel( -1, ping, 0 );
-                startMenu(media);
-                Play(media);
-            }
+bool isIn(const SDL_Point& point, const Object* objs, const int& NUM_OF_OBJS, int& i) {
+    //i là chỉ số của object có chứa điểm point
+    for (int j = 0; j < NUM_OF_OBJS; j++)
+        if (isIn(point, objs[j].getRect())) {
+            i = j;
+            return true;
         }
+    return false;
+}
+
+void laserShoot(Media* media, const int& mode, SDL_Renderer* renderer, SDL_Point& des,
+                const Object& Werner, Object* wall, int& WALLS, int** pos) {
+    SDL_Rect rect = Werner.getRect();
+    Point laser_point(rect.x + SQ_SIZE[mode]*4/5,  rect.y + SQ_SIZE[mode]*3/5);
+    SDL_Point appr = {laser_point.x, laser_point.y};
+    int dif_x = des.x - laser_point.x;
+    int dif_y = des.y - laser_point.y;
+    if (dif_x == 0 && dif_y == 0) return;
+    double vx = 0, vy = 0;
+    if (abs(dif_x) >= abs(dif_y)) {
+        vx = 5.0;
+        vy = abs(vx / dif_x * dif_y);
+    }
+    else {
+        vy = 5.0;
+        vx = abs(vy / dif_y * dif_x);
+    }
+    if (dif_x < 0) vx = -vx;
+    if (dif_y < 0) vy = -vy;
+    int i = -1;
+    while (!isIn(appr, wall, WALLS, i) && isIn(appr, BIG_RECT)) {
+        laser_point.x += vx;
+        laser_point.y += vy;
+        appr = {(int)(laser_point.x), (int)(laser_point.y)};
+    }
+    Werner.Render(renderer, Werner.getRect());
+    SDL_RenderDrawLine(renderer, rect.x + SQ_SIZE[mode]*4/5, rect.y + SQ_SIZE[mode]*3/5, laser_point.x, laser_point.y);
+    SDL_RenderPresent(renderer);
+    SDL_Delay(500);
+    if (i != -1) {
+        Mix_PlayChannel(-1, media->explode, 0);
+        int x_ = wall[i].getRect().x / SQ_SIZE[mode];
+        int y_ = wall[i].getRect().y / SQ_SIZE[mode];
+        pos[x_][y_] = 0;
+        wall[i] = wall[WALLS-1];
+        WALLS--;
     }
 }
+
 

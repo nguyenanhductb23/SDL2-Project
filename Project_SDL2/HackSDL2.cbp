@@ -38,13 +38,9 @@
 		<Unit filename="HighScoreFile.h" />
 		<Unit filename="MainEngine.cpp" />
 		<Unit filename="MainEngine.h" />
-		<Unit filename="PrintText.cpp" />
-		<Unit filename="PrintText.h" />
-		<Unit filename="Sound.cpp" />
-		<Unit filename="Sound.h" />
+		<Unit filename="Media.h" />
 		<Unit filename="StandardObject.cpp" />
 		<Unit filename="StandardObject.h" />
-		<Unit filename="Struct.h" />
 		<Unit filename="Utils.cpp" />
 		<Unit filename="Utils.h" />
 		<Unit filename="main.cpp" />
