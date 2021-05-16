@@ -12,7 +12,7 @@ Game có thể dừng được, có lưu điểm cao riêng
 cho từng mode.
 
 Nguồn tham khảo: 
-- Code utils: lazyfoo
+- Code utils: https://lazyfoo.net/tutorials/SDL/index.php
 - Code nhận sự kiện: trang Google Docs của lớp
 - Ý tưởng Media.h: project Snake của cô Châu
 - Còn lại là ý tưởng và code của em.
