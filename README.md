@@ -9,7 +9,7 @@ người chơi có thể lựa chọn.
 - Game có thể dừng được, có lưu và cập nhật điểm cao riêng
 cho từng mode.
 - Game được lập trình đảm bảo sự chặt chẽ trong các thuật toán:
-khởi tạo tường, di chuyển kho báu.
+khởi tạo tường và vị trí quái vật, di chuyển kho báu.
 
 Nguồn tham khảo: 
 + Code utils: https://lazyfoo.net/tutorials/SDL/index.php
