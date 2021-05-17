@@ -16,7 +16,8 @@ Nguồn tham khảo:
 + Code utils: https://lazyfoo.net/tutorials/SDL/index.php (có chỉnh sửa)
 + Code nhận sự kiện: code mẫu trên trang Google Docs của lớp
 + Ý tưởng về Media.h: project Snake của cô Châu
-+ Còn lại là ý tưởng và code của em.
++ Còn lại (các thuật toán hình học, menu, xử lí với file, ...) 
+là ý tưởng và code của em.
 
 Video demo: 
 https://youtu.be/li9rIXgkwas
