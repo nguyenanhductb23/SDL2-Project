@@ -17,4 +17,5 @@ Nguồn tham khảo:
 + Ý tưởng Media.h: project Snake của cô Châu
 + Còn lại là ý tưởng và code của em.
 
-Video demo: Ngày 17/5 em sẽ up lên ạ.
+Video demo: 
+https://youtu.be/li9rIXgkwas
