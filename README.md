@@ -1,5 +1,7 @@
 # TREASURE HUNT PRO
 
+(Game tự thiết kế)
+
 Người chơi nhập vai Werner di chuyển trên bản đồ,
 vượt qua quái vật để lấy kho báu.
 
@@ -16,7 +18,7 @@ Nguồn tham khảo:
 + Code utils: https://lazyfoo.net/tutorials/SDL/index.php (có chỉnh sửa)
 + Code nhận sự kiện: code mẫu trên trang Google Docs của lớp
 + Ý tưởng về Media.h: project Snake của cô Châu
-+ Còn lại (các thuật toán hình học, menu, xử lí với file, ...) 
++ Còn lại (các thuật toán hình học, bắn laze, menu, xử lí với file, ...) 
 là ý tưởng và code của em.
 
 Video demo: 
